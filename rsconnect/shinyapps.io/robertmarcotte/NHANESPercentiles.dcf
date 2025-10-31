@@ -1,0 +1,13 @@
+name: NHANESPercentiles
+title: NHANESPercentiles
+username:
+account: robertmarcotte
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 4359123
+bundleId: 5562077
+url: https://robertmarcotte.shinyapps.io/NHANESPercentiles/
+when: 1644430053.95736
+lastSyncTime: 1644430053.95736
+asMultiple: FALSE
+asStatic: FALSE
