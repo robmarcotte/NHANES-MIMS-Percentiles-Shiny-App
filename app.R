@@ -69,7 +69,7 @@ ui <- fluidPage(
                  p("Your processed dataset with computed percentiles will preview below once uploaded:"),
                  tableOutput("preview_table"),
                  
-                 # --- Added Hardware Footnotes and References Block ---
+                 #  Added Footnotes and References Block
                  hr(),
                  tags$p(tags$em(tags$b("Metric Specifications Note:")), style = "font-size: 13px; color: #555;"),
                  tags$ul(
@@ -92,7 +92,7 @@ ui <- fluidPage(
 # Define server logic
 server <- function(input, output, session) {
   
-  # --- Original App Observers and Outputs ---
+  # Original App Observers and Outputs
   observeEvent(input$metric_input,{
     updateNumericInput(session, inputId = 'activity_input', value = ifelse(input$metric_input == 1, 
                                                                            ifelse(input$sex_input == 1, 290000, 240000),
@@ -135,8 +135,7 @@ server <- function(input, output, session) {
                              Total_Activity = tac_values)
       
       ggplot(data = plot_data, aes(x = Age, y = Total_Activity, group = Percentile)) + 
-        geom_line(color = 'black', linewidth = 1.2) + 
-        # Exact original placement with inherit.aes = FALSE added to prevent aesthetic mapping crash
+        geom_line(color = 'black', linewidth = 1.2) + # changed from 'size' to 'linewidth' due to deprecation in ggplot2 version
         geom_point(inherit.aes = FALSE, data = data.frame(x = ifelse(input$age_input >= 80, 80, input$age_input), y = input$activity_input), 
                    aes(x = x, y = y), size = 3, color = 'navy blue') +
         theme(axis.text.x = element_text(angle = 60, vjust = 0.5))+ 
@@ -229,7 +228,7 @@ server <- function(input, output, session) {
     }
     
     # Appends values rounded cleanly to whole integers
-    df$calculated_percentile <- round(percentiles * 100, 0)
+    df$calculated_percentile <- round(percentiles * 100, 1)
     return(df)
   })
   
@@ -252,7 +251,7 @@ server <- function(input, output, session) {
     }
   )
   
-  # --- References for the Batch Tab ---
+  # References for the Batch Tab
   output$batch_reference_title = renderText({ paste('<B>References:</B>') })
   output$batch_reference1 = renderText({ paste('<B>1.</B> Wolff-Hughes DL, Fitzhugh EC, Bassett DR, Churilla JR. Waist-Worn Actigraphy: Population-Referenced Percentiles for Total Activity Counts in U.S. Adults. J Phys Act Health. 2015 Apr;12(4):447-53. doi: 10.1123/jpah.2013-0464. Epub 2014 Jun 4. PMID: 24905055.') })
   output$batch_reference2 = renderText({ paste('<B>2.</B> Wolff-Hughes DL, Bassett DR, Fitzhugh EC. Population-referenced percentiles for waist-worn accelerometer-derived total activity counts in U.S. youth: 2003 - 2006 NHANES. PLoS One. 2014 Dec 22;9(12):e115915. doi: 10.1371/journal.pone.0115915. PMID: 25531290; PMCID: PMC4274159.') })
